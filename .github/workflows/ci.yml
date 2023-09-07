@@ -1,8 +1,9 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ test/main ]
   pull_request:
     types: [ opened, reopened, labeled, synchronize ]
 
@@ -42,7 +43,7 @@ jobs:
         test:
           - snapshotter
           - kubernetes
-    runs-on: nix-snapshotter-runner
+    runs-on: ubuntu-22.04
     needs: [lint, build]
     if: contains(github.event.pull_request.labels.*.name, 'ok-to-test')
     steps:
