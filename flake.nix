@@ -7,6 +7,7 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+    nix-snapshotter-flake.url = "github:pdtpartners/nix-snapshotter";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
