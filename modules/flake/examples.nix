@@ -7,7 +7,7 @@
 
       examples = rec {
         hello = buildImage {
-          name = "ghcr.io/pdtpartners/hello";
+          name = "ghcr.io/cameronraysmith/hello";
           tag = "latest";
           config = {
             entrypoint = ["${pkgs.hello}/bin/hello"];
@@ -15,7 +15,7 @@
         };
 
         redis = buildImage {
-          name = "ghcr.io/pdtpartners/redis";
+          name = "ghcr.io/cameronraysmith/redis";
           tag = "latest";
           config = {
             entrypoint = [ "${pkgs.redis}/bin/redis-server" ];
@@ -23,7 +23,7 @@
         };
 
         redisWithShell = buildImage {
-          name = "ghcr.io/pdtpartners/redis-shell";
+          name = "ghcr.io/cameronraysmith/redis-shell";
           tag = "latest";
           fromImage = redis;
           config = {
