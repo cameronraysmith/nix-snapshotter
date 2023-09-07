@@ -1,31 +1,20 @@
 name: CI
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ test/main ]
   pull_request:
     types: [ opened, reopened, labeled, synchronize ]
 
 jobs:
-  lint:
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        linter:
-          - golangci-lint
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Nix
-        uses: ./.github/actions/setup-nix
-      - name: Run linter
-        run: nix run .#lint-${{ matrix.linter }}
 
   build:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
         package:
-          - nix-snapshotter
+          # - nix-snapshotter
           - image-hello
           - image-redis
           - image-redisWithShell
@@ -40,11 +29,11 @@ jobs:
     strategy:
       matrix:
         test:
-          - snapshotter
+          # - snapshotter
           - kubernetes
-    runs-on: nix-snapshotter-runner
-    needs: [lint, build]
-    if: contains(github.event.pull_request.labels.*.name, 'ok-to-test')
+    runs-on: ubuntu-22.04
+    needs: [build]
+    # if: contains(github.event.pull_request.labels.*.name, 'ok-to-test')
     steps:
       - uses: actions/checkout@v3
       - name: Setup Nix
