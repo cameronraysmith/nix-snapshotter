@@ -1,8 +1,9 @@
-{ lib, ... }:
+{ lib, inputs, ... }:
 {
   perSystem = { pkgs, ... }: {
     packages = rec {
-      inherit (pkgs) nix-snapshotter;
+      # inherit (pkgs) nix-snapshotter;
+      nix-snapshotter = inputs.nix-snapshotter.defaultPackage.${pkgs.system};
       default = nix-snapshotter;
     };
 
